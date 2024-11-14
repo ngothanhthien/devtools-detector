@@ -17,14 +17,9 @@ export const workerPerformanceChecker: DevtoolsStatusChecker = {
     const logPrintTime = await calcLogPrintTime(workerConsole);
     maxPrintTime = Math.max(maxPrintTime, logPrintTime);
 
-    await workerConsole.clear();
-
     if (tablePrintTime === 0) return false;
     if (maxPrintTime === 0) {
-      if (await isBrave()) {
-        return true;
-      }
-      return false;
+      return await isBrave();
     }
 
     return tablePrintTime > maxPrintTime * 10;
